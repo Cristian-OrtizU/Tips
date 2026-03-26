@@ -101,13 +101,13 @@ fun TipMasterProApp() {
     ) {
         // --- CABECERA ---
         Text(
-            text = "Tips",
+            text = "Propina",
             color = ElectricCyanSolid,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        Text(text = "TOTAL BILL", color = TextSecondaryGray, fontSize = 12.sp)
+        Text(text = "TOTAL", color = TextSecondaryGray, fontSize = 12.sp)
 
         // --- INPUT PRINCIPAL ---
         BasicTextField(
@@ -152,7 +152,7 @@ fun TipMasterProApp() {
                 .weight(1f)
                 .padding(vertical = 16.dp)
         ) {
-            val tipOptions = listOf(0, 10, 15, 18, 20)
+            val tipOptions = listOf(0, 10, 15, 20)
             items(tipOptions.size) { index ->
                 val percentage = tipOptions[index]
                 TipSelectionCard(
@@ -192,7 +192,7 @@ fun TipMasterProApp() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "SPLIT BILL",
+                    text = "Cuenta Dividida",
                     color = TextSecondaryGray,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
@@ -223,7 +223,7 @@ fun TipMasterProApp() {
                             fontSize = 38.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Text(text = "PEOPLE", color = TextSecondaryGray, fontSize = 12.sp)
+                        Text(text = "PERSONAS", color = TextSecondaryGray, fontSize = 12.sp)
                     }
 
                     RoundSplitButton(
@@ -251,7 +251,7 @@ fun TipMasterProApp() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "TOTAL PER PERSON:",
+                    text = "TOTAL POR PERSONA:",
                     color = TextPrimaryWhite,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
@@ -288,7 +288,7 @@ fun TipMasterProApp() {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "PAY NOW",
+                text = "PAGAR AHORA",
                 color = TextPrimaryWhite,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -312,7 +312,7 @@ fun TipMasterProApp() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Order Summary",
+                        text = "Orden",
                         color = ElectricCyanSolid,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
@@ -322,19 +322,19 @@ fun TipMasterProApp() {
                     // Desglose de la cuenta
                     SummaryRow(label = "Subtotal", value = formatter.format(billAmount))
                     SummaryRow(
-                        label = "Tip (${if (effectiveTipPercentage % 1.0 == 0.0) effectiveTipPercentage.toInt() else effectiveTipPercentage}%)",
+                        label = "Propina (${if (effectiveTipPercentage % 1.0 == 0.0) effectiveTipPercentage.toInt() else effectiveTipPercentage}%)",
                         value = formatter.format(tipAmount)
                     )
 
                     HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp), color = TextSecondaryGray.copy(alpha = 0.2f))
 
                     SummaryRow(label = "Total", value = formatter.format(totalWithTip), isTotal = true)
-                    SummaryRow(label = "Split by", value = "$numPeopleSplit people")
+                    SummaryRow(label = "Dividido en", value = "$numPeopleSplit personas")
 
                     Spacer(modifier = Modifier.height(24.dp))
 
                     // Resultado en Grande dentro del Modal
-                    Text(text = "Amount per person", color = TextSecondaryGray, fontSize = 12.sp)
+                    Text(text = "Cuenta por persona", color = TextSecondaryGray, fontSize = 12.sp)
                     Text(
                         text = formatter.format(splitResult),
                         color = ElectricBlueSolid,
@@ -352,11 +352,11 @@ fun TipMasterProApp() {
                             .clip(RoundedCornerShape(16.dp))
                             .clickable {
                                 showSummaryModal = false
-                                Toast.makeText(context, "Payment Successful! \uD83D\uDE80", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context, "Pago Realizado \uD83D\uDE80", Toast.LENGTH_LONG).show()
                             },
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("CONFIRM", color = DeepDarkBase, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
+                        Text("CONFIRMAR", color = DeepDarkBase, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -414,7 +414,7 @@ fun TipSelectionCard(
     } else {
         Modifier
             .background(CardBackground, shape = RoundedCornerShape(20.dp))
-            .border(2.dp, ElectricBluePurpleGradient, shape = RoundedCornerShape(20.dp))
+            .border(2.dp, ElectricCyanGradient, shape = RoundedCornerShape(20.dp))
     }
 
     Box(
@@ -434,7 +434,7 @@ fun TipSelectionCard(
                 fontWeight = FontWeight.ExtraBold
             )
             Text(
-                text = if (percentage == 0) "No tip" else "+ $tipFormatted",
+                text = if (percentage == 0) "Sin propina" else "+ $tipFormatted",
                 color = if (isSelected) TextPrimaryWhite.copy(alpha = 0.8f) else TextSecondaryGray,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
